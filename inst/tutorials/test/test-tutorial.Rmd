@@ -1,0 +1,26 @@
+---
+title: "test-tutorial"
+author: "Benjamin A. Robinson"
+date: "10/08/2020"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+```
+
+## Video
+
+This is a test of embedding a video into a learnr tutorial
+
+![](https://youtu.be/dhBSNFAawH0)
+
+## Hello, Tutorial!
+The below example is copied from the user guide for learnr.
+
+This code computes the answer to one plus one, change it so it computes two plus two:
+
+```{r addition, exercise=TRUE}
+1 + 1
+```
