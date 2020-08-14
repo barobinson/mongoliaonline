@@ -2,7 +2,7 @@ Package: mongoliaonline
 Type: Package
 Title: Mongolia Online Learning
 Version: 0.1.0
-Author: Benjamin A. Robinson
+Author: Julian Faraway and Benjamin A. Robinson
 Maintainer: Benjamin A. Robinson <b.a.robinson@bath.ac.uk>
 Description: Tutorials for Mongolia online learning
 License: Unlimited

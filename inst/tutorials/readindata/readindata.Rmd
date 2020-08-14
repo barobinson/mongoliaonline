@@ -1,0 +1,166 @@
+---
+title: "Reading in some data"
+author: "Julian Faraway and Benjamin A. Robinson"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include = FALSE}
+library(learnr)
+library(gradethis)
+tutorial_options(exercise.checker = gradethis::grade_learnr)
+library(tidyverse)
+ub8 = read_csv("ub8.csv")
+```
+
+# Loading packages
+
+When you start R, all the basic functions are available. But often you want additional functionality that is provided by
+packages. 
+
+- The packages must be available in your installation.
+  - Checking the `Packages` tab in the lower right window to see what packages are installed.
+  - If the package you want is not installed, use the `Tools->Install Packages` menu to add them.
+  
+- The `tidyverse` package is a collection of popular packages produced by Rstudio.
+
+We start by loading this package:
+
+```{r}
+library(tidyverse)
+```
+
+![Video demonstrating installing and loading the `tidyverse` package](https://youtu.be/S1qT1I6Bc6U)
+
+# Reading in data
+
+Data comes in many formats which R can handle. Perhaps the most popular data format is CSV (comma separated values). You can save data in this format from Excel. This is a straightforward method to transfer data from Excel to R.
+
+You need to know where your data is stored. In this example, we assume that the CSV file is stored in your main project directory. This means we can specify the file without a path. 
+
+We read the data called `uliral.csv`). You can click on this file in the Files pane to view it. We can read it in with:
+
+```{r}
+uliral = read_csv("uliral.csv")
+```
+
+You will get some messages about the format used for each variable in the dataset.
+
+
+# Checking your data
+
+You will want to check that your data has read in correctly. You can just type the name of the data object - we called it `uliral`.
+
+```{r}
+uliral
+```
+
+You can see the first few lines on the dataset. You can also see the dimension of the dataset (41,135 rows by 14 columns).
+
+This data is hospital admissions in the first quarter of 2014.
+
+Another way of looking at the data is:
+
+```{r}
+glimpse(uliral)
+```
+
+which is good when there are many columns in your data.
+
+# Summary
+
+You can also get a summary of your data with
+
+```{r}
+summary(uliral)
+```
+
+It is a good idea to check this to make sure there are no obvious errors:
+
+There are statistics for the numerical variables. 
+
+- Hospital is not a numerical variable - the number is just a label
+- There is one very large cost (is this correct?)
+- Some patients were admitted before the beginning of the period
+- All departed during the period
+- There are no missing values
+
+We can get a summary of the character variables to show the frequencies. The command
+is complicated - we will explain this later.
+
+```{r}
+uliral %>% transmute_if(is.character,as.factor) %>% summary()
+```
+
+- Ulaanbaatar is by far the most common city
+- There are some missing values for education and occupation
+- J18 (Pneumonia) is the most common illness. The subcategory is not always specified.
+
+# Write for later
+
+We save the file so we can read it in again later.
+
+```{r}
+save(uliral,file="uliral.rda")
+```
+
+If you check the "Files" pane of Rstudio, you will see that it is much smaller in size than the original csv file.
+
+![Video demonstrating reading in `uliral.csv` and looking at the data](https://youtu.be/jQkzHy8qaGM)
+
+# Exercises
+
+In the Files pane, you can see `ub8.csv`. We now read in this data, and look at it in the following exercises.
+
+```{r}
+ub8 = read_csv("ub8.csv")
+```
+
+```{r glimpse, exercise=TRUE}
+# Look at the data
+```
+
+```{r glimpse-solution}
+glimpse(ub8)
+```
+
+```{r summary, exercise = TRUE}
+# Get a summary of the data
+```
+
+```{r summary-solution}
+summary(ub8)
+```
+
+The data set ub8 contains levels of pollutants over time.
+
+```{r date, echo = FALSE}
+question("Which years are included in the data?",
+         answer("2012 - 2016 only", message = "This is the interquartile range"),
+         answer("2010 - 2018 only", correct = TRUE),
+         answer("2008 - 2016 only"),
+         answer("2014 only")
+)
+```
+
+```{r lowest, echo = FALSE}
+question("Which pollutant has the lowest median level?",
+         answer("SO2"),
+         answer("NO2", correct = TRUE),
+         answer("PM10"),
+         answer("PM25"),
+         answer("CO2"),
+         answer("03")
+)
+
+```
+
+The entries 99999 are in the place of missing data, where we do not know what the true value should be. We will see how to remove these values in a later tutorial. Because of these artificial large values, some of the summary statistics are not reliable.
+
+```{r missing, echo = FALSE}
+question("Which average is more reliable for comparing the levels of the pollutants?",
+         answer("Mean", message ="The mean is skewed by the presence of the artificial large values in place of missing data, and so it is not reliable."),
+         answer("Median", correct = TRUE, message = "The median is affected less than the mean by the artificial large values in place of missing data.")
+)
+```
