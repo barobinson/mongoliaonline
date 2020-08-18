@@ -1,0 +1,12 @@
+name: readindata
+title: readindata
+username:
+account: br275
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 2671009
+bundleId: 3529634
+url: https://br275.shinyapps.io/readindata/
+when: 1597756747.46512
+asMultiple: FALSE
+asStatic: FALSE

@@ -1,0 +1,278 @@
+---
+title: "Manipulating data with `dplyr`"
+author: "Julian Faraway and Benjamin A. Robinson"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+## Setup
+
+The `dplyr` package is part of the `tidyverse`. It is useful for manipulating data. See <https://www.tidyverse.org> for more details.
+
+We need to start by loading the `tidyverse` and the data.
+
+```{r}
+library(tidyverse)
+load("../../../data/uliral.rda")
+```
+
+If you continue immediately from the previous exercise, the data and package would already be loaded. But is sensible to make your scripts work individually.
+
+## Filter
+
+The `dplyr` package uses "verbs" to manipulate data. The first verb we learn is `filter` which chooses rows of the data based on a condition. Here is an example:
+
+```{r}
+filter(uliral, City == "Ulaanbaatar")
+```
+
+We find all cases from Ulaanbaatar. We see there are 17,451 cases.
+
+It is common to use a pipe in dplyr computations. The '%>%' operator is used:
+
+```{r}
+uliral %>% filter(City == "Ulaanbaatar")
+```
+
+The output from the object on the left of the pipe (`uliral`) is used as input to the expression on the right of the pipe. We can chain these together:
+
+```{r}
+uliral %>% filter(City == "Ulaanbaatar") %>% filter(Age == 90)
+```
+
+These are 4 90 year olds admitted in Ulaanbaatar. We can do this more neatly as:
+
+```{r}
+uliral %>% filter(City == "Ulaanbaatar" & Age == 90)
+```
+
+The `slice` verb is similar to `filter`. It selects the rows using the row number. The `:` operator generates sequences of numbers. For example:
+
+```{r}
+10:20
+```
+
+We can select rows 10 to 20 in the data using
+
+```{r}
+uliral %>% slice(10:20)
+```
+
+### Exercises
+
+We recommend that you add your answers to these questions in this document. Insert a chunk to show your answers:
+
+1. Find all the patients admitted to Hospital no. 212. How many are there?
+
+2. Find all the patients admitted to Hospital no. 2162636 who are also older than 21.
+
+3. Find the first three patients who are aged 79 years. You will need to use both filter and slice.
+
+## Select
+
+The `select` verb is used for selecting variables(columns) in the data. 
+
+For example, we can choose two columns:
+
+```{r}
+uliral %>% select(Hospital, City)
+```
+
+or everything except these two columns:
+
+```{r}
+uliral %>% select(-Hospital, -City)
+```
+
+We can use a modifier if we only want variables of a particular type For example, suppose we want only the numeric type variables:
+
+```{r}
+uliral %>% select_if(is.numeric)
+```
+
+Sometimes we want a range of variables. We can do this by using the range operator `:`.
+
+```{r}
+uliral %>% select(Gender:Day)
+```
+
+More *select helpers* can be found at <https://dplyr.tidyverse.org/reference/select_helpers.html>
+
+
+### Exercises
+
+1. Create a dataset with only the `Gender` and `City` variables.
+
+2. Create a dataset with only character variables.
+
+3. Create a dataset with only the cities of those aged 50.
+
+
+## Arrange
+
+The `arrange` verb sorts the data. Here is an example.
+
+```{r}
+uliral %>% arrange(Age)
+```
+
+The data are now sorted with those aged zero first. We can reverse the order:
+
+```{r}
+uliral %>% arrange(desc(Age))
+```
+
+### Exercises
+
+1. Which is the highest Hospital number?
+
+2. What was the age of oldest person admitted in Khovd? (You will need to use both `filter` and `arrange` to answer this question)
+
+
+## Mutate
+
+The `mutate` verb is used add columns to the data. Suppose we want the exact age of a patient. The `Age` is given in years but the `Month` and the `Day` should be combined with this:
+
+
+```{r}
+uliral %>% mutate(trueage = Age + Month/12 + Day/365) %>% select(Age, Month, Day, trueage)
+```
+
+I have selected only these variables for display to make it easier to see what has be done. We can see that the true age has been added to the data in the final column. But now try this:
+
+```{r}
+colnames(uliral)
+```
+
+We can see that the true age variable is not included. We did not save our computation. We can achieve this with:
+
+
+```{r}
+uliral %>% mutate(trueage = Age + Month/12 + Day/365) -> uliral
+colnames(uliral)
+```
+
+We can see it at the end of the list of variable names.
+
+### Exercises
+
+Create a new variable which is the departure date minus the admission date. Compare it to the `TreatDays` variable.
+
+## Summarize
+
+The `summarise` verb computes summaries of variables. Suppose we want the mean age:
+
+```{r}
+uliral %>% summarise(mean(Age))
+```
+
+Now suppose we want the median stay (`TreatDays`):
+
+```{r}
+uliral %>% summarize(median(TreatDays))
+```
+
+As it happens, we can do the same thing with a base R command:
+
+```{r}
+median(uliral$TreatDays)
+```
+
+*Base R* refers to the commands available without loading any packages. It is powerful and can do anything that *dplyr* can do. But its syntax is more complex and less transparent.
+
+The `summarise` command is more useful when we want more than one summary:
+
+```{r}
+uliral %>% summarise(min = min(Age), mean=mean(Age), max=max(Age))
+```
+
+Notice how we have named the three elements so they are labelled in the output.
+
+The `summarize_at` command allows us apply several summaries to several variables. Here we compute the min, mean and max of two variables. 
+
+```{r}
+uliral %>% summarize_at(vars(Age,TreatDays),list(min=min,mean=mean,max=max))
+```
+
+The `summarize_if` command allows us to choose variables based on some characteristic. In this example, we check for numeric variables and then summarise them:
+
+```{r}
+uliral %>% summarize_if(is.numeric, list(min=min,mean=mean,max=max))
+```
+
+Notice that it would not make sense to ask for the mean of a character variable.
+
+The `summarize_all` command applies the function to all the variables. Here is an example:
+
+```{r}
+uliral %>% summarize_all(last)
+```
+
+This asks for the last value of every variable. This function is valid for all variables so it is acceptable. This produces the last row of the data.
+
+An easier way to do this is:
+
+```{r}
+uliral %>% slice(41135)
+```
+
+or more generally:
+
+```{r}
+uliral %>% slice(n())
+```
+
+The `n()` function does a count - in this case the number of rows in the data.
+
+
+### Exercises
+
+1. What is the IQR (interquartile range) of `Age`? You will need the the `IQR()` function.
+
+2. Compute the sum of `Age` and the sum of `TreatDays`. These two numbers can be computed with a single line of code.
+
+3. Extract the last value of all the character type variables. You will need the `is.character()` function.
+
+4. What is the mean of the ten largest values of `TreatDays`?
+
+## Grouping
+
+Summarizing is most useful for groups within the data rather than for all the data. Here is an example:
+
+```{r}
+uliral %>% group_by(City) %>% summarise(mean(Age))
+```
+
+We group by city and then compute the mean age.
+
+
+Here is another example:
+
+```{r}
+uliral %>% group_by(Age) %>% summarise(meanstay = mean(TreatDays), maxstay = max(TreatDays), n=n())
+```
+
+Here we group by age and compute 3 summary statistics: the mean stay, the maximum stay and we use the `n()` function to count the number of patients in each group.
+
+You can group by more than one variable. For example:
+
+```{r}
+uliral %>% group_by(City, Occupation) %>% summarize(meanstay = mean(TreatDays), meanage= mean(Age), n=n())
+```
+
+We group by occupation and city and compute mean stay and age along with the number in that category.
+
+
+### Exercises
+
+1. What are the median stays for males and females?
+
+2. What are the median ages for each level of Education, separately by sex?
+
+3. Compute the number of combinations of `Education`, `Occupation` and `City`. Sort them by their frequency.
+
+4. Extract the first of each combination of `Gender`, `Finish`. Your solution should be a dataset with 6 rows.
+
+
+

@@ -14,7 +14,7 @@ library(tidyverse)
 ub8 = read_csv("ub8.csv")
 ```
 
-# Loading packages
+## Loading packages
 
 When you start R, all the basic functions are available. But often you want additional functionality that is provided by
 packages. 
@@ -33,7 +33,7 @@ library(tidyverse)
 
 ![Video demonstrating installing and loading the `tidyverse` package](https://youtu.be/S1qT1I6Bc6U)
 
-# Reading in data
+## Reading in data
 
 Data comes in many formats which R can handle. Perhaps the most popular data format is CSV (comma separated values). You can save data in this format from Excel. This is a straightforward method to transfer data from Excel to R.
 
@@ -48,7 +48,7 @@ uliral = read_csv("uliral.csv")
 You will get some messages about the format used for each variable in the dataset.
 
 
-# Checking your data
+### Checking your data
 
 You will want to check that your data has read in correctly. You can just type the name of the data object - we called it `uliral`.
 
@@ -68,7 +68,7 @@ glimpse(uliral)
 
 which is good when there are many columns in your data.
 
-# Summary
+### Summary
 
 You can also get a summary of your data with
 
@@ -97,7 +97,7 @@ uliral %>% transmute_if(is.character,as.factor) %>% summary()
 - There are some missing values for education and occupation
 - J18 (Pneumonia) is the most common illness. The subcategory is not always specified.
 
-# Write for later
+### Write for later
 
 We save the file so we can read it in again later.
 
@@ -109,7 +109,7 @@ If you check the "Files" pane of Rstudio, you will see that it is much smaller i
 
 ![Video demonstrating reading in `uliral.csv` and looking at the data](https://youtu.be/jQkzHy8qaGM)
 
-# Exercises
+## Exercises
 
 In the Files pane, you can see `ub8.csv`. We now read in this data, and look at it in the following exercises.
 

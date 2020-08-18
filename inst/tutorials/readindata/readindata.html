@@ -10,7 +10,7 @@
 
 <meta name="author" content="Julian Faraway and Benjamin A. Robinson" />
 
-<meta name="date" content="2020-08-14" />
+<meta name="date" content="2020-08-18" />
 
 <meta name="progressive" content="false" />
 <meta name="allow-skip" content="false" />
@@ -118,8 +118,8 @@ $(document).ready(function () {
 
 <div class="topics">
 
-<div id="section-loading-packages" class="section level1">
-<h1>Loading packages</h1>
+<div id="section-loading-packages" class="section level2">
+<h2>Loading packages</h2>
 <p>When you start R, all the basic functions are available. But often you want additional functionality that is provided by packages.</p>
 <ul>
 <li>The packages must be available in your installation.
@@ -136,8 +136,8 @@ $(document).ready(function () {
 <p class="caption">Video demonstrating installing and loading the <code>tidyverse</code> package</p>
 </div>
 </div>
-<div id="section-reading-in-data" class="section level1">
-<h1>Reading in data</h1>
+<div id="section-reading-in-data" class="section level2">
+<h2>Reading in data</h2>
 <p>Data comes in many formats which R can handle. Perhaps the most popular data format is CSV (comma separated values). You can save data in this format from Excel. This is a straightforward method to transfer data from Excel to R.</p>
 <p>You need to know where your data is stored. In this example, we assume that the CSV file is stored in your main project directory. This means we can specify the file without a path.</p>
 <p>We read the data called <code>uliral.csv</code>). You can click on this file in the Files pane to view it. We can read it in with:</p>
@@ -160,9 +160,8 @@ $(document).ready(function () {
 ##   Illness = col_character()
 ## )</code></pre>
 <p>You will get some messages about the format used for each variable in the dataset.</p>
-</div>
-<div id="section-checking-your-data" class="section level1">
-<h1>Checking your data</h1>
+<div id="section-checking-your-data" class="section level3">
+<h3>Checking your data</h3>
 <p>You will want to check that your data has read in correctly. You can just type the name of the data object - we called it <code>uliral</code>.</p>
 <pre class="r"><code>uliral</code></pre>
 <div data-pagedtable="false">
@@ -192,8 +191,8 @@ $(document).ready(function () {
 ## $ Illness    &lt;chr&gt; &quot;J18.&quot;, &quot;J18.&quot;, &quot;J11.0&quot;, &quot;J18.0&quot;, &quot;J18.0&quot;, &quot;J20.9&quot;, &quot;J18.0…</code></pre>
 <p>which is good when there are many columns in your data.</p>
 </div>
-<div id="section-summary" class="section level1">
-<h1>Summary</h1>
+<div id="section-summary" class="section level3">
+<h3>Summary</h3>
 <p>You can also get a summary of your data with</p>
 <pre class="r"><code>summary(uliral)</code></pre>
 <pre><code>##     Hospital             City              Gender               Age        
@@ -257,8 +256,8 @@ $(document).ready(function () {
 <li>J18 (Pneumonia) is the most common illness. The subcategory is not always specified.</li>
 </ul>
 </div>
-<div id="section-write-for-later" class="section level1">
-<h1>Write for later</h1>
+<div id="section-write-for-later" class="section level3">
+<h3>Write for later</h3>
 <p>We save the file so we can read it in again later.</p>
 <pre class="r"><code>save(uliral,file=&quot;uliral.rda&quot;)</code></pre>
 <p>If you check the “Files” pane of Rstudio, you will see that it is much smaller in size than the original csv file.</p>
@@ -267,8 +266,9 @@ $(document).ready(function () {
 <p class="caption">Video demonstrating reading in <code>uliral.csv</code> and looking at the data</p>
 </div>
 </div>
-<div id="section-exercises" class="section level1">
-<h1>Exercises</h1>
+</div>
+<div id="section-exercises" class="section level2">
+<h2>Exercises</h2>
 <p>In the Files pane, you can see <code>ub8.csv</code>. We now read in this data, and look at it in the following exercises.</p>
 <pre class="r"><code>ub8 = read_csv(&quot;ub8.csv&quot;)</code></pre>
 <pre><code>## Parsed with column specification:
@@ -448,19 +448,19 @@ learnr:::store_exercise_cache("summary", list(chunks = list(list(label = "summar
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "date", question = structure("Which years are included in the data?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_1da14c5", 
+"character")), answers = list(structure(list(id = "lnr_ans_f7e6715", 
     option = "2012 - 2016 only", value = "2012 - 2016 only", 
     label = structure("2012 - 2016 only", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("This is the interquartile range", html = TRUE, class = c("html", 
     "character"))), class = c("tutorial_question_answer", "tutorial_quiz_answer"
-)), structure(list(id = "lnr_ans_26009a0", option = "2010 - 2018 only", 
+)), structure(list(id = "lnr_ans_a74dc7a", option = "2010 - 2018 only", 
     value = "2010 - 2018 only", label = structure("2010 - 2018 only", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_a843345", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_81416b3", 
     option = "2008 - 2016 only", value = "2008 - 2016 only", 
     label = structure("2008 - 2016 only", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_6eed553", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_56dbb0b", 
     option = "2014 only", value = "2014 only", label = structure("2014 only", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
 "tutorial_quiz_answer"))), button_labels = list(submit = structure("Submit Answer", html = TRUE, class = c("html", 
@@ -471,28 +471,28 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "date-answer", question = "date"), loading = structure("<strong>Loading:<\u002fstrong> \nWhich years are included in the data?\n<br/><br/><br/>", html = TRUE, class = c("html", 
 "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 1079173927.49747, options = list()), class = c("learnr_radio", 
+    seed = 906794185.077741, options = list()), class = c("learnr_radio", 
 "tutorial_question")))
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "lowest", question = structure("Which pollutant has the lowest median level?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_d5fdfb7", 
+"character")), answers = list(structure(list(id = "lnr_ans_81428c8", 
     option = "SO2", value = "SO2", label = structure("SO2", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_d37d2f2", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_af15beb", 
     option = "NO2", value = "NO2", label = structure("NO2", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_ff3edbe", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_61148e0", 
     option = "PM10", value = "PM10", label = structure("PM10", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_6e979a6", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_5d4c609", 
     option = "PM25", value = "PM25", label = structure("PM25", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_9a85d6f", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_3ed164c", 
     option = "CO2", value = "CO2", label = structure("CO2", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_cf95996", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_d1e1c3a", 
     option = "03", value = "03", label = structure("03", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
 "tutorial_quiz_answer"))), button_labels = list(submit = structure("Submit Answer", html = TRUE, class = c("html", 
@@ -503,17 +503,17 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "lowest-answer", question = "lowest"), loading = structure("<strong>Loading:<\u002fstrong> \nWhich pollutant has the lowest median level?\n<br/><br/><br/>", html = TRUE, class = c("html", 
 "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 1097217616.98907, options = list()), class = c("learnr_radio", 
+    seed = 1541064487.78239, options = list()), class = c("learnr_radio", 
 "tutorial_question")))
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "missing", question = structure("Which average is more reliable for comparing the levels of the pollutants?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_b8768db", 
+"character")), answers = list(structure(list(id = "lnr_ans_8bb2968", 
     option = "Mean", value = "Mean", label = structure("Mean", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("The mean is skewed by the presence of the artificial large values in place of missing data, and so it is not reliable.", html = TRUE, class = c("html", 
     "character"))), class = c("tutorial_question_answer", "tutorial_quiz_answer"
-)), structure(list(id = "lnr_ans_d0de976", option = "Median", 
+)), structure(list(id = "lnr_ans_b5e076a", option = "Median", 
     value = "Median", label = structure("Median", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = structure("The median is affected less than the mean by the artificial large values in place of missing data.", html = TRUE, class = c("html", 
     "character"))), class = c("tutorial_question_answer", "tutorial_quiz_answer"
@@ -525,7 +525,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "missing-answer", question = "missing"), loading = structure("<strong>Loading:<\u002fstrong> \nWhich average is more reliable for comparing the levels of the pollutants?\n<br/><br/><br/>", html = TRUE, class = c("html", 
 "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 1492144151.30517, options = list()), class = c("learnr_radio", 
+    seed = 2046209590.04716, options = list()), class = c("learnr_radio", 
 "tutorial_question")))
 </script>
  <!--html_preserve-->
@@ -551,7 +551,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 <div id="doc-metadata">
 <h2 class="title toc-ignore" style="display:none;">Reading in some data</h2>
 <h4 class="author"><em>Julian Faraway and Benjamin A. Robinson</em></h4>
-<h4 class="date"><em>14 August 2020</em></h4>
+<h4 class="date"><em>18 August 2020</em></h4>
 </div>
 <!-- end doc-metadata -->
 
