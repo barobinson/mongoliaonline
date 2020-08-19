@@ -6,6 +6,17 @@ output: learnr::tutorial
 runtime: shiny_prerendered
 ---
 
+```{r setup, include = FALSE}
+library(learnr)
+library(gradethis)
+tutorial_options(exercise.checker = gradethis::grade_learnr)
+library(R.utils)
+setOption("gradethis_glue_correct", "{ .message} {.correct}")
+setOption("gradethis_glue_incorrect", "{ .message} { .incorrect}")
+library(tidyverse)
+load("uliral.rda")
+```
+
 ## Setup
 
 The `dplyr` package is part of the `tidyverse`. It is useful for manipulating data. See <https://www.tidyverse.org> for more details.
@@ -61,13 +72,74 @@ uliral %>% slice(10:20)
 
 ### Exercises
 
-We recommend that you add your answers to these questions in this document. Insert a chunk to show your answers:
+1. Find all the patients admitted to Hospital no. 212.
 
-1. Find all the patients admitted to Hospital no. 212. How many are there?
+```{r filter_ex_1, exercise = TRUE}
+
+```
+
+```{r filter_ex_1-solution}
+uliral %>% filter(Hospital == 212)
+```
+
+```{r filter_ex_1-check}
+grade_code(
+  correct = "Correct!",
+  incorrect = "Try again"
+)
+```
+How many are there?
+
+```{r filter_ex_1b, exercise = TRUE}
+
+```
+
+```{r filter_ex_1b-solution}
+uliral %>% filter(Hospital == 212) %>% nrow()
+```
+```{r filter_ex_1b-check}
+grade_result(
+  pass_if(~ .result == 1, "Correct!"),
+  default_message = "Try again"
+)
+```
 
 2. Find all the patients admitted to Hospital no. 2162636 who are also older than 21.
 
+```{r filter_ex_2, exercise = TRUE}
+
+```
+
+```{r filter_ex_2-solution}
+uliral %>% filter(Hospital == 2162636 & Age > 21)
+```
+
+```{r filter_ex_2-check}
+grade_result(
+  pass_if(~ identical(.result, uliral %>% filter(Hospital == 2162636 & Age > 21)) , "Correct!"),
+  fail_if(~ identical(.result, uliral %>% filter(Hospital == 2162636)) , "You also need to filter by age"),
+   fail_if(~ identical(.result, uliral %>% filter(Age > 21)) , "You also need to filter by hospital"),
+  default_message = "Try again"
+)
+```
+
 3. Find the first three patients who are aged 79 years. You will need to use both filter and slice.
+
+```{r filter_ex_3, exercise = TRUE}
+
+```
+
+```{r filter_ex_3-solution}
+uliral %>% filter(Age == 79) %>% slice(1:3)
+```
+
+```{r filter_ex_3-check}
+grade_code(
+  correct = "Correct!",
+  incorrect = "Try again"
+)
+```
+
 
 ## Select
 
