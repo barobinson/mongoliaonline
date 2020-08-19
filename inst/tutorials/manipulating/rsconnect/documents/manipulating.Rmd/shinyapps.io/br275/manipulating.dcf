@@ -4,9 +4,9 @@ username:
 account: br275
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
-appId: 2681020
-bundleId: 3533532
+appId: 2684788
+bundleId: 3533837
 url: https://br275.shinyapps.io/manipulating/
-when: 1597835726.64119
+when: 1597842171.17543
 asMultiple: FALSE
 asStatic: FALSE

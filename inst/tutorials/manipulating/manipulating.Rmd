@@ -78,6 +78,18 @@ uliral %>% slice(10:20)
 
 ```
 
+<!-- ```{r filter_ex_1-hint-1} -->
+<!-- uliral %>% filter(___) -->
+<!-- ``` -->
+
+<!-- ```{r filter_ex_1-hint-2} -->
+<!-- uliral %>% filter(___ == ___) -->
+<!-- ``` -->
+
+<!-- ```{r filter_ex_1-hint-3} -->
+<!-- uliral %>% filter(Hospital == 212) -->
+<!-- ``` -->
+
 ```{r filter_ex_1-solution}
 uliral %>% filter(Hospital == 212)
 ```
@@ -110,6 +122,17 @@ grade_result(
 
 ```
 
+<!-- # ```{r filter_ex_2-hint-1} -->
+<!-- # uliral %>% filter(___ & ___) -->
+<!-- # ``` -->
+<!-- #  -->
+<!-- # ```{r filter_ex_2-hint-2} -->
+<!-- # uliral %>% filter(Hospital ___ & Age ___) -->
+<!-- # ``` -->
+<!-- #  -->
+<!-- # ```{r filter_ex_2-hint-3} -->
+<!-- # uliral %>% filter(Hospital == 2162636 & Age > 21) -->
+<!-- # ``` -->
 ```{r filter_ex_2-solution}
 uliral %>% filter(Hospital == 2162636 & Age > 21)
 ```
@@ -128,6 +151,18 @@ grade_result(
 ```{r filter_ex_3, exercise = TRUE}
 
 ```
+
+<!-- ```{r filter_ex_3-hint-1} -->
+<!-- uliral %>% filter(___) %>% slice(___) -->
+<!-- ``` -->
+
+<!-- ```{r filter_ex_3-hint-2} -->
+<!-- uliral %>% filter(Age == 79) %>% slice(___) -->
+<!-- ``` -->
+
+<!-- ```{r filter_ex_3-hint-3} -->
+<!-- uliral %>% filter(Age == 79) %>% slice(1:3) -->
+<!-- ``` -->
 
 ```{r filter_ex_3-solution}
 uliral %>% filter(Age == 79) %>% slice(1:3)
