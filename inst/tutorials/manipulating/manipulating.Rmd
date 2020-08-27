@@ -14,7 +14,7 @@ library(R.utils)
 setOption("gradethis_glue_correct", "{ .message} {.correct}")
 setOption("gradethis_glue_incorrect", "{ .message} { .incorrect}")
 library(tidyverse)
-load("uliral.rda")
+load("hospds.rda")
 ```
 
 ## Setup
@@ -25,7 +25,7 @@ We need to start by loading the `tidyverse` and the data.
 
 ```{r}
 library(tidyverse)
-load("../../../data/uliral.rda")
+load("../../../data/hospds.rda")
 ```
 
 If you continue immediately from the previous exercise, the data and package would already be loaded. But is sensible to make your scripts work individually.
@@ -35,7 +35,7 @@ If you continue immediately from the previous exercise, the data and package wou
 The `dplyr` package uses "verbs" to manipulate data. The first verb we learn is `filter` which chooses rows of the data based on a condition. Here is an example:
 
 ```{r}
-filter(uliral, City == "Ulaanbaatar")
+filter(hospds, City == "Ulaanbaatar")
 ```
 
 We find all cases from Ulaanbaatar. We see there are 17,451 cases.
@@ -43,19 +43,19 @@ We find all cases from Ulaanbaatar. We see there are 17,451 cases.
 It is common to use a pipe in dplyr computations. The '%>%' operator is used:
 
 ```{r}
-uliral %>% filter(City == "Ulaanbaatar")
+hospds %>% filter(City == "Ulaanbaatar")
 ```
 
-The output from the object on the left of the pipe (`uliral`) is used as input to the expression on the right of the pipe. We can chain these together:
+The output from the object on the left of the pipe (`hospds`) is used as input to the expression on the right of the pipe. We can chain these together:
 
 ```{r}
-uliral %>% filter(City == "Ulaanbaatar") %>% filter(Age == 90)
+hospds %>% filter(City == "Ulaanbaatar") %>% filter(Age == 90)
 ```
 
 These are 4 90 year olds admitted in Ulaanbaatar. We can do this more neatly as:
 
 ```{r}
-uliral %>% filter(City == "Ulaanbaatar" & Age == 90)
+hospds %>% filter(City == "Ulaanbaatar" & Age == 90)
 ```
 
 The `slice` verb is similar to `filter`. It selects the rows using the row number. The `:` operator generates sequences of numbers. For example:
@@ -67,7 +67,7 @@ The `slice` verb is similar to `filter`. It selects the rows using the row numbe
 We can select rows 10 to 20 in the data using
 
 ```{r}
-uliral %>% slice(10:20)
+hospds %>% slice(10:20)
 ```
 
 ### Exercises
@@ -79,19 +79,19 @@ uliral %>% slice(10:20)
 ```
 
 <!-- ```{r filter_ex_1-hint-1} -->
-<!-- uliral %>% filter(___) -->
+<!-- hospds %>% filter(___) -->
 <!-- ``` -->
 
 <!-- ```{r filter_ex_1-hint-2} -->
-<!-- uliral %>% filter(___ == ___) -->
+<!-- hospds %>% filter(___ == ___) -->
 <!-- ``` -->
 
 <!-- ```{r filter_ex_1-hint-3} -->
-<!-- uliral %>% filter(Hospital == 212) -->
+<!-- hospds %>% filter(Hospital == 212) -->
 <!-- ``` -->
 
 ```{r filter_ex_1-solution}
-uliral %>% filter(Hospital == 212)
+hospds %>% filter(Hospital == 212)
 ```
 
 ```{r filter_ex_1-check}
@@ -107,7 +107,7 @@ How many are there?
 ```
 
 ```{r filter_ex_1b-solution}
-uliral %>% filter(Hospital == 212) %>% nrow()
+hospds %>% filter(Hospital == 212) %>% nrow()
 ```
 ```{r filter_ex_1b-check}
 grade_result(
@@ -122,26 +122,26 @@ grade_result(
 
 ```
 
-<!-- # ```{r filter_ex_2-hint-1} -->
-<!-- # uliral %>% filter(___ & ___) -->
-<!-- # ``` -->
-<!-- #  -->
-<!-- # ```{r filter_ex_2-hint-2} -->
-<!-- # uliral %>% filter(Hospital ___ & Age ___) -->
-<!-- # ``` -->
-<!-- #  -->
-<!-- # ```{r filter_ex_2-hint-3} -->
-<!-- # uliral %>% filter(Hospital == 2162636 & Age > 21) -->
-<!-- # ``` -->
+<!--  ```{r filter_ex_2-hint-1} -->
+<!--  hospds %>% filter(___ & ___) -->
+<!--  ``` -->
+<!--   -->
+<!--  ```{r filter_ex_2-hint-2} -->
+<!--  hospds %>% filter(Hospital ___ & Age ___) -->
+<!--  ``` -->
+<!--   -->
+<!--  ```{r filter_ex_2-hint-3} -->
+<!--  hospds %>% filter(Hospital == 2162636 & Age > 21) -->
+<!--  ``` -->
 ```{r filter_ex_2-solution}
-uliral %>% filter(Hospital == 2162636 & Age > 21)
+hospds %>% filter(Hospital == 2162636 & Age > 21)
 ```
 
 ```{r filter_ex_2-check}
 grade_result(
-  pass_if(~ identical(.result, uliral %>% filter(Hospital == 2162636 & Age > 21)) , "Correct!"),
-  fail_if(~ identical(.result, uliral %>% filter(Hospital == 2162636)) , "You also need to filter by age"),
-   fail_if(~ identical(.result, uliral %>% filter(Age > 21)) , "You also need to filter by hospital"),
+  pass_if(~ identical(.result, hospds %>% filter(Hospital == 2162636 & Age > 21)) , "Correct!"),
+  fail_if(~ identical(.result, hospds %>% filter(Hospital == 2162636)) , "You also need to filter by age"),
+   fail_if(~ identical(.result, hospds %>% filter(Age > 21)) , "You also need to filter by hospital"),
   default_message = "Try again"
 )
 ```
@@ -153,19 +153,19 @@ grade_result(
 ```
 
 <!-- ```{r filter_ex_3-hint-1} -->
-<!-- uliral %>% filter(___) %>% slice(___) -->
+<!-- hospds %>% filter(___) %>% slice(___) -->
 <!-- ``` -->
 
 <!-- ```{r filter_ex_3-hint-2} -->
-<!-- uliral %>% filter(Age == 79) %>% slice(___) -->
+<!-- hospds %>% filter(Age == 79) %>% slice(___) -->
 <!-- ``` -->
 
 <!-- ```{r filter_ex_3-hint-3} -->
-<!-- uliral %>% filter(Age == 79) %>% slice(1:3) -->
+<!-- hospds %>% filter(Age == 79) %>% slice(1:3) -->
 <!-- ``` -->
 
 ```{r filter_ex_3-solution}
-uliral %>% filter(Age == 79) %>% slice(1:3)
+hospds %>% filter(Age == 79) %>% slice(1:3)
 ```
 
 ```{r filter_ex_3-check}
@@ -183,25 +183,25 @@ The `select` verb is used for selecting variables(columns) in the data.
 For example, we can choose two columns:
 
 ```{r}
-uliral %>% select(Hospital, City)
+hospds %>% select(Hospital, City)
 ```
 
 or everything except these two columns:
 
 ```{r}
-uliral %>% select(-Hospital, -City)
+hospds %>% select(-Hospital, -City)
 ```
 
 We can use a modifier if we only want variables of a particular type For example, suppose we want only the numeric type variables:
 
 ```{r}
-uliral %>% select_if(is.numeric)
+hospds %>% select_if(is.numeric)
 ```
 
 Sometimes we want a range of variables. We can do this by using the range operator `:`.
 
 ```{r}
-uliral %>% select(Gender:Day)
+hospds %>% select(Gender:Day)
 ```
 
 More *select helpers* can be found at <https://dplyr.tidyverse.org/reference/select_helpers.html>
@@ -221,13 +221,13 @@ More *select helpers* can be found at <https://dplyr.tidyverse.org/reference/sel
 The `arrange` verb sorts the data. Here is an example.
 
 ```{r}
-uliral %>% arrange(Age)
+hospds %>% arrange(Age)
 ```
 
 The data are now sorted with those aged zero first. We can reverse the order:
 
 ```{r}
-uliral %>% arrange(desc(Age))
+hospds %>% arrange(desc(Age))
 ```
 
 ### Exercises
@@ -243,21 +243,21 @@ The `mutate` verb is used add columns to the data. Suppose we want the exact age
 
 
 ```{r}
-uliral %>% mutate(trueage = Age + Month/12 + Day/365) %>% select(Age, Month, Day, trueage)
+hospds %>% mutate(trueage = Age + Month/12 + Day/365) %>% select(Age, Month, Day, trueage)
 ```
 
 I have selected only these variables for display to make it easier to see what has be done. We can see that the true age has been added to the data in the final column. But now try this:
 
 ```{r}
-colnames(uliral)
+colnames(hospds)
 ```
 
 We can see that the true age variable is not included. We did not save our computation. We can achieve this with:
 
 
 ```{r}
-uliral %>% mutate(trueage = Age + Month/12 + Day/365) -> uliral
-colnames(uliral)
+hospds %>% mutate(trueage = Age + Month/12 + Day/365) -> hospds
+colnames(hospds)
 ```
 
 We can see it at the end of the list of variable names.
@@ -271,19 +271,19 @@ Create a new variable which is the departure date minus the admission date. Comp
 The `summarise` verb computes summaries of variables. Suppose we want the mean age:
 
 ```{r}
-uliral %>% summarise(mean(Age))
+hospds %>% summarise(mean(Age))
 ```
 
 Now suppose we want the median stay (`TreatDays`):
 
 ```{r}
-uliral %>% summarize(median(TreatDays))
+hospds %>% summarize(median(TreatDays))
 ```
 
 As it happens, we can do the same thing with a base R command:
 
 ```{r}
-median(uliral$TreatDays)
+median(hospds$TreatDays)
 ```
 
 *Base R* refers to the commands available without loading any packages. It is powerful and can do anything that *dplyr* can do. But its syntax is more complex and less transparent.
@@ -291,7 +291,7 @@ median(uliral$TreatDays)
 The `summarise` command is more useful when we want more than one summary:
 
 ```{r}
-uliral %>% summarise(min = min(Age), mean=mean(Age), max=max(Age))
+hospds %>% summarise(min = min(Age), mean=mean(Age), max=max(Age))
 ```
 
 Notice how we have named the three elements so they are labelled in the output.
@@ -299,13 +299,13 @@ Notice how we have named the three elements so they are labelled in the output.
 The `summarize_at` command allows us apply several summaries to several variables. Here we compute the min, mean and max of two variables. 
 
 ```{r}
-uliral %>% summarize_at(vars(Age,TreatDays),list(min=min,mean=mean,max=max))
+hospds %>% summarize_at(vars(Age,TreatDays),list(min=min,mean=mean,max=max))
 ```
 
 The `summarize_if` command allows us to choose variables based on some characteristic. In this example, we check for numeric variables and then summarise them:
 
 ```{r}
-uliral %>% summarize_if(is.numeric, list(min=min,mean=mean,max=max))
+hospds %>% summarize_if(is.numeric, list(min=min,mean=mean,max=max))
 ```
 
 Notice that it would not make sense to ask for the mean of a character variable.
@@ -313,7 +313,7 @@ Notice that it would not make sense to ask for the mean of a character variable.
 The `summarize_all` command applies the function to all the variables. Here is an example:
 
 ```{r}
-uliral %>% summarize_all(last)
+hospds %>% summarize_all(last)
 ```
 
 This asks for the last value of every variable. This function is valid for all variables so it is acceptable. This produces the last row of the data.
@@ -321,13 +321,13 @@ This asks for the last value of every variable. This function is valid for all v
 An easier way to do this is:
 
 ```{r}
-uliral %>% slice(41135)
+hospds %>% slice(41135)
 ```
 
 or more generally:
 
 ```{r}
-uliral %>% slice(n())
+hospds %>% slice(n())
 ```
 
 The `n()` function does a count - in this case the number of rows in the data.
@@ -348,7 +348,7 @@ The `n()` function does a count - in this case the number of rows in the data.
 Summarizing is most useful for groups within the data rather than for all the data. Here is an example:
 
 ```{r}
-uliral %>% group_by(City) %>% summarise(mean(Age))
+hospds %>% group_by(City) %>% summarise(mean(Age))
 ```
 
 We group by city and then compute the mean age.
@@ -357,7 +357,7 @@ We group by city and then compute the mean age.
 Here is another example:
 
 ```{r}
-uliral %>% group_by(Age) %>% summarise(meanstay = mean(TreatDays), maxstay = max(TreatDays), n=n())
+hospds %>% group_by(Age) %>% summarise(meanstay = mean(TreatDays), maxstay = max(TreatDays), n=n())
 ```
 
 Here we group by age and compute 3 summary statistics: the mean stay, the maximum stay and we use the `n()` function to count the number of patients in each group.
@@ -365,7 +365,7 @@ Here we group by age and compute 3 summary statistics: the mean stay, the maximu
 You can group by more than one variable. For example:
 
 ```{r}
-uliral %>% group_by(City, Occupation) %>% summarize(meanstay = mean(TreatDays), meanage= mean(Age), n=n())
+hospds %>% group_by(City, Occupation) %>% summarize(meanstay = mean(TreatDays), meanage= mean(Age), n=n())
 ```
 
 We group by occupation and city and compute mean stay and age along with the number in that category.
