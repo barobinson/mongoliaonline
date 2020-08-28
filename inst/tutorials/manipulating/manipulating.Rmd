@@ -728,13 +728,130 @@ We group by occupation and city and compute mean stay and age along with the num
 
 ### Exercises
 
-1. What are the median stays for males and females?
+1. Create a data set that contains only the median stays for males and females.
 
-2. What are the median ages for each level of Education, separately by sex?
+```{r group_ex_1, exercise = TRUE}
 
-3. Compute the number of combinations of `Education`, `Occupation` and `City`. Sort them by their frequency.
+```
 
-4. Extract the first of each combination of `Gender`, `Finish`. Your solution should be a dataset with 6 rows.
+```{r group_ex_1-hint-1}
+hospds %>% group_by(___) %>% summarise(___)
+```
+
+```{r group_ex_1-hint-2}
+hospds %>% group_by(Gender) %>% summarise(___)
+```
+
+```{r group_ex_1-hint-3}
+hospds %>% group_by(Gender) %>% summarise(median(TreatDays))
+```
+
+```{r group_ex_1-solution}
+hospds %>% group_by(Gender) %>% summarise(median(TreatDays))
+```
+
+```{r group_ex_1-check}
+grade_result(
+  pass_if(~identical(.result, hospds %>% group_by(Gender) %>% summarise(median(TreatDays))), "Correct!"),
+  fail_if(~identical(.result, hospds %>% summarise(median(TreatDays))), "You need to group by gender before finding the median."),
+  default_message = "Try again"
+)
+```
+
+2. Create a data set that shows the median ages for each level of Education, separately by sex.
+
+```{r group_ex_2, exercise = TRUE}
+
+```
+
+```{r group_ex_2-hint-1}
+hospds %>% group_by(___) %>% summarise(___)
+```
+
+```{r group_ex_2-hint-2}
+hospds %>% group_by(Education, Gender) %>% summarise(___)
+```
+
+```{r group_ex_2-hint-3}
+hospds %>% group_by(Education, Gender) %>% summarise(median(Age))
+```
+
+```{r group_ex_2-solution}
+hospds %>% group_by(Education, Gender) %>% summarise(median(Age))
+```
+
+```{r group_ex_2-check}
+grade_result(
+  pass_if(~identical(.result, hospds %>% group_by(Education, Gender) %>% summarise(median(Age))), "Correct!"),
+  fail_if(~identical(.result, hospds %>% group_by(Education) %>% summarise(median(Age))), "You need to group by gender as well as education."),
+  fail_if(~identical(.result, hospds %>% group_by(Gender) %>% summarise(median(Age))), "You need to group by education as well as gender."),
+  default_message = "Try again"
+)
+```
+
+3. Find all combinations of `Education`, `Occupation` and `City`. Sort them by their frequency, from highest to lowest.
+
+```{r group_ex_3, exercise = TRUE}
+
+```
+
+```{r group_ex_3-hint-1}
+hospds %>% group_by(___) %>% summarise(___) %>% arrange(___)
+```
+
+```{r group_ex_3-hint-2}
+hospds %>% group_by(Education, Occupation, City) %>% summarise(n = n()) %>% arrange(___)
+```
+
+```{r group_ex_3-hint-3}
+hospds %>% group_by(Education, Occupation, City) %>% summarise(n = n()) %>% arrange(desc(n))
+```
+
+```{r group_ex_3-solution}
+hospds %>% group_by(Education, Occupation, City) %>% summarise(n = n()) %>% arrange(desc(n))
+```
+
+```{r group_ex_3-check}
+grade_result(
+  pass_if(~identical(.result, hospds %>% group_by(Education, Occupation, City) %>% summarise(n = n()) %>% arrange(desc(n))), "Correct!"),
+  fail_if(~identical(.result, hospds %>% group_by(Education, Occupation, City)), "Now count the number of patients in each group and sort by the number"),
+  fail_if(~identical(.result, hospds %>% group_by(Education, Occupation, City) %>% summarise(n = n())), "Now sort by the number in each group, from highest to lowest."),
+  fail_if(~identical(.result, hospds %>% group_by(Education, Occupation, City) %>% summarise(n = n()) %>% arrange(n)), "You've sorted from lowest to highest, rather than highest to lowest."),
+  default_message = "Try again"
+)
+```
+
+
+4. Extract the first patient of each combination of `Gender`, `Finish`. Your solution should be a dataset with 6 rows.
+
+```{r group_ex_4, exercise = TRUE}
+
+```
+
+```{r group_ex_4-hint-1}
+hospds %>% group_by(Gender, Finish) %>% ___
+```
+
+```{r group_ex_4-hint-2}
+hospds %>% group_by(Gender, Finish) %>% summarise_all(___)
+```
+
+```{r group_ex_4-hint-3}
+hospds %>% group_by(Gender, Finish) %>% summarise_all(first)
+```
+
+```{r group_ex_4-solution}
+hospds %>% group_by(Gender, Finish) %>% summarise_all(first)
+```
+
+```{r group_ex_4-check}
+grade_result(
+  pass_if(~identical(.result, hospds %>% group_by(Gender, Finish) %>% summarise_all(first)), "Correct!"),
+  fail_if(~identical(.result, hospds %>% group_by(Gender, Finish)), "Now use summarise_all to extract the first patient of each group."),
+  fail_if(~identical(.result, hospds %>% group_by(Gender, Finish) %>% summarise_all(last)), "You have found the last patient of each group, rather than the first."),
+  default_message = "Try again"
+)
+```
 
 
 
