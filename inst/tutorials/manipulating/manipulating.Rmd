@@ -470,7 +470,36 @@ We can see it at the end of the list of variable names.
 
 ### Exercises
 
-Create a new variable which is the departure date minus the admission date. Compare it to the `TreatDays` variable.
+1. Create a new variable called `NewDays` which is the departure date minus the admission date.
+
+```{r mutate_ex_1, exercise = TRUE}
+
+```
+
+```{r mutate_ex_1-hint-1}
+hospds %>% mutate(___)
+```
+
+```{r mutate_ex_1-hint-2}
+hospds %>% mutate(NewDays = ___)
+```
+
+```{r mutate_ex_1-hint-3}
+hospds %>% mutate(NewDays = Departure - Admitted)
+```
+
+```{r mutate_ex_1-solution}
+hospds %>% mutate(NewDays = Departure - Admitted)
+```
+
+```{r mutate_ex_1-check}
+grade_code(
+  correct = "Correct!",
+  incorrect = "Try again"
+)
+```
+
+Compare this new variable to the `TreatDays` variable. The two variables should be the same.
 
 ## Summarize
 
