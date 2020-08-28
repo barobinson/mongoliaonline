@@ -572,11 +572,131 @@ The `n()` function does a count - in this case the number of rows in the data.
 
 1. What is the IQR (interquartile range) of `Age`? You will need the the `IQR()` function.
 
-2. Compute the sum of `Age` and the sum of `TreatDays`. These two numbers can be computed with a single line of code.
+```{r summ_ex_1, exercise = TRUE}
+
+```
+
+```{r summ_ex_1-hint-1}
+hospds %>% summarise(___)
+```
+
+```{r summ_ex_1-hint-2}
+hospds %>% summarise(IQR(___))
+```
+
+```{r summ_ex_1-hint-3}
+hospds %>% summarise(IQR(Age))
+```
+
+```{r summ_ex_1-solution}
+hospds %>% summarise(IQR(Age))
+```
+
+```{r summ_ex_1-check}
+grade_code(
+  correct = "Correct!",
+  incorrect = "Try again"
+)
+```
+
+2. Compute the sum of `Age` and the sum of `TreatDays` and label these `sum`. These two numbers can be computed with a single line of code.
+
+
+```{r summ_ex_2, exercise = TRUE}
+
+```
+
+```{r summ_ex_2-hint-1}
+hospds %>% summarise_at(vars(___), list(___))
+```
+
+```{r summ_ex_2-hint-2}
+hospds %>% summarise_at(vars(___), list(sum = sum))
+```
+
+```{r summ_ex_2-hint-3}
+hospds %>% summarise_at(vars(Age, TreatDays), list(sum = sum))
+```
+
+```{r summ_ex_2-solution}
+hospds %>% summarise_at(vars(Age, TreatDays), list(sum = sum))
+```
+
+```{r summ_ex_2-check}
+grade_result(
+  pass_if(~identical(.result, hospds %>% summarise_at(vars(Age, TreatDays), list(sum = sum))), "Correct!"),
+  fail_if(~identical(.result, ospds %>% summarise_at(vars(Age, TreatDays), list(sum))), "You need to add the label sum"),
+  default_message = "Try again"
+)
+```
 
 3. Extract the last value of all the character type variables. You will need the `is.character()` function.
 
+
+```{r summ_ex_3, exercise = TRUE}
+
+```
+
+```{r summ_ex_3-hint-1}
+hospds %>% summarise_if(___, ___)
+```
+
+```{r summ_ex_3-hint-2}
+hospds %>% summarise_if(is.character, ___)
+```
+
+```{r summ_ex_3-hint-3}
+hospds %>% summarise_if(is.character, last)
+```
+
+```{r summ_ex_3-solution}
+hospds %>% summarise_if(is.character, last)
+```
+
+```{r summ_ex_3-check}
+grade_result(
+  pass_if(~identical(.result, hospds %>% summarise_if(is.character, last)), "Correct!"),
+  default_message = "Try again"
+)
+```
+
 4. What is the mean of the ten largest values of `TreatDays`?
+
+```{r summ_ex_4, exercise = TRUE}
+
+```
+
+```{r summ_ex_4-hint-1}
+hospds %>% arrange(___) %>% slice(___) %>% summarise(___)
+```
+
+```{r summ_ex_4-hint-2}
+hospds %>% arrange(desc(TreatDays)) %>% slice(___) %>% summarise(___)
+```
+
+```{r summ_ex_4-hint-3}
+hospds %>% arrange(desc(TreatDays)) %>% slice(1:10) %>% summarise(___)
+```
+
+```{r summ_ex_4-hint-4}
+hospds %>% arrange(desc(TreatDays)) %>% slice(1:10) %>% summarise(mean(TreatDays))
+```
+
+```{r summ_ex_4-solution}
+hospds %>% arrange(desc(TreatDays)) %>% slice(1:10) %>% summarise(mean(TreatDays))
+```
+
+```{r summ_ex_4-check}
+grade_result(
+  pass_if(~identical(.result, hospds %>% arrange(desc(TreatDays)) %>% slice(1:10) %>% summarise(mean(TreatDays))), "Correct!"),
+  fail_if(~identical(.result, hospds %>% arrange(TreatDays) %>% slice(1:10) %>% summarise(mean(TreatDays))), "You have found the mean of the 10 smallest values of TreatDays, not the 10 largest."),
+  fail_if(~identical(.result, hospds %>% slice(1:10) %>% summarise(mean(TreatDays))), "You first need to sort by TreatDays"),
+  fail_if(~identical(.result, hospds %>% arrange(desc(TreatDays)) %>% summarise(mean(TreatDays))), "You need to use slice to get the mean of only the 10 largest values of TreatDays"),
+  fail_if(~identical(.result, hospds %>% arrange(desc(TreatDays)) %>% slice(1:10)), "You have found the 10 largest values of TreatDays. Now take the mean"),
+  fail_if(~identical(.result, hospds %>% summarise(mean(TreatDays))), "You have taken the mean over all values of TreatDays. You need to use arrange and slice to get only the 10 largest values."),
+  default_message = "Try again"
+)
+```
 
 ## Grouping
 
