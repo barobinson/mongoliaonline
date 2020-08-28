@@ -100,7 +100,7 @@ grade_code(
   incorrect = "Try again"
 )
 ```
-How many are there?
+How many are there? (Write some code that outputs the number)
 
 ```{r filter_ex_1b, exercise = TRUE}
 
@@ -111,7 +111,7 @@ hospds %>% filter(Hospital == 613) %>% count()
 ```
 ```{r filter_ex_1b-check}
 grade_result(
-  pass_if(~ .result == 205, "Correct!"),
+  pass_if(~ .result == hospds %>% filter(Hospital == 613) %>% count(), "Correct!"),
   default_message = "Try again"
 )
 ```
@@ -170,9 +170,11 @@ hospds %>% filter(Age == 79) %>% slice(1:3)
 ```
 
 ```{r filter_ex_3-check}
-grade_code(
-  correct = "Correct!",
-  incorrect = "Try again"
+grade_result(
+  pass_if(~ identical(.result, hospds %>% filter(Age == 79) %>% slice(1:3)), "Correct!"),
+  fail_if(~ identical(.result, hospds %>% filter(Age == 79)) , "You also need to use slice to get the first 3 patients"),
+   fail_if(~ identical(.result, hospds %>% slice(1:3)) , "You also need to filter by age"),
+  default_message = "Try again"
 )
 ```
 
@@ -212,9 +214,88 @@ More *select helpers* can be found at <https://dplyr.tidyverse.org/reference/sel
 
 1. Create a dataset with only the `Gender` and `City` variables.
 
+```{r select_ex_1, exercise = TRUE}
+
+```
+
+```{r select_ex_1-hint-1}
+hospds %>% select(___, ___)
+```
+
+```{r select_ex_1-hint-2}
+hospds %>% select(Gender, City)
+```
+
+```{r select_ex_1-solution}
+hospds %>% select(Gender, City)
+```
+
+```{r select_ex_1-check}
+grade_result(
+  pass_if(~ identical(.result, hospds %>% select(Gender, City)), "Correct!"),
+  fail_if(~ identical(.result, hospds %>% select(Gender)) , "You also need to include the City variable"),
+   fail_if(~ identical(.result, hospds %>% select(City)) , "You also need to include the Gender variable"),
+  default_message = "Try again"
+)
+```
+
 2. Create a dataset with only character variables.
 
+```{r select_ex_2, exercise = TRUE}
+
+```
+
+```{r select_ex_2-hint-1}
+hospds %>% ___(is.character)
+```
+
+```{r select_ex_2-hint-2}
+hospds %>% select_if(is.character)
+```
+
+```{r select_ex_2-solution}
+hospds %>% select_if(is.character)
+```
+
+```{r select_ex_2-check}
+grade_code(
+  correct = "Correct!",
+  incorrect = "Try again"
+)
+```
+
 3. Create a dataset with only the cities of those aged 50.
+
+```{r select_ex_3, exercise = TRUE}
+
+```
+
+```{r select_ex_3-hint-1}
+hospds %>% filter(___) %>% select(___)
+```
+
+```{r select_ex_3-hint-2}
+hospds %>% filter(Age == 50) %>% select(___)
+```
+
+```{r select_ex_3-hint-3}
+hospds %>% filter(Age == 50) %>% select(City)
+```
+
+```{r select_ex_3-solution}
+hospds %>% filter(Age == 50) %>% select(City)
+```
+
+```{r select_ex_3-check}
+grade_result(
+  pass_if(~ identical(.result, hospds %>% filter(Age == 50) %>% select(City)), "Correct!"),
+  fail_if(~ identical(.result, hospds %>% filter(Age == 50)) , "You also need to use `select` to get a dataset with only the cities"),
+   fail_if(~ identical(.result, hospds %>% filter(Age == 50) %>% select(City, Age)) , "You have created a dataset with both cities and ages. You only need to keep the City variable."),
+  fail_if(~ identical(.result, hospds %>% select(City, Age)) , "You need to filter by age and then keep only the City variable."),
+  fail_if(~ identical(.result, hospds %>% select(City)) , "You need to filter by age before selecting the city variable."),
+  default_message = "Try again"
+)
+```
 
 
 ## Arrange
@@ -233,10 +314,134 @@ hospds %>% arrange(desc(Age))
 
 ### Exercises
 
-1. Which is the highest Hospital number?
+1. Sort the data by hospital number, with the highest hospital number first.
 
-2. What was the age of oldest person admitted in Khovd? (You will need to use both `filter` and `arrange` to answer this question)
+```{r arrange_ex_1, exercise = TRUE}
 
+```
+
+```{r arrange_ex_1-hint-1}
+hospds %>% arrange(___)
+```
+
+```{r arrange_ex_1-hint-2}
+hospds %>% arrange(___(Hospital))
+```
+
+```{r arrange_ex_1-hint-3}
+hospds %>% arrange(desc(Hospital))
+```
+
+```{r arrange_ex_1-solution}
+hospds %>% arrange(desc(Hospital))
+```
+
+```{r arrange_ex_1-check}
+grade_result(
+  pass_if(~ identical(.result, hospds %>% arrange(desc(Hospital))), "Correct!"),
+  fail_if(~ identical(.result, arrange(Hospital)) , "You have sorted by hospital number with the smallest number first."),
+  default_message = "Try again"
+)
+```
+
+What is the highest hospital number? You can use a combination of `arrange`, `select`, and `slice` to find this.
+
+```{r arrange_ex_1b, exercise = TRUE}
+
+```
+
+```{r arrange_ex_1b-hint-1}
+hospds %>% arrange(___) %>% select(___) %>% slice(___)
+```
+
+```{r arrange_ex_1b-hint-2}
+hospds %>% arrange(desc(Hospital)) %>% select(___) %>% slice(___)
+```
+
+```{r arrange_ex_1b-hint-3}
+hospds %>% arrange(desc(Hospital)) %>% select(Hospital) %>% slice(___)
+```
+
+```{r arrange_ex_1b-hint-4}
+hospds %>% arrange(desc(Hospital)) %>% select(Hospital) %>% slice(1)
+```
+
+```{r arrange_ex_1b-solution}
+hospds %>% arrange(desc(Hospital)) %>% select(Hospital) %>% slice(1)
+```
+
+```{r arrange_ex_1b-check}
+grade_result(
+  pass_if(~ identical(.result, hospds %>% arrange(desc(Hospital)) %>% select(Hospital) %>% slice(1)), "Correct!"),
+  fail_if(~ identical(.result, hospds %>% arrange(Hospital) %>% select(Hospital) %>% slice(1)) , "You have found the lowest hospital number."),
+  fail_if(~ identical(.result, hospds %>% arrange(desc(Hospital)) %>% slice(1)) , "Now use select to get only the hospital number."),
+  default_message = "Try again"
+)
+```
+
+2. Use `filter` and `arrange` to create a data set with the only the patients in Khovd, sorted by age from oldest to youngest.
+
+```{r arrange_ex_2, exercise = TRUE}
+
+```
+
+```{r arrange_ex_2-hint-1}
+hospds %>% filter(___) %>% arrange(___)
+```
+
+```{r arrange_ex_2-hint-2}
+hospds %>% filter(___) %>% arrange(desc(Age))
+```
+
+```{r arrange_ex_2-hint-3}
+hospds %>% filter(City == "Khovd") %>% arrange(desc(Age))
+```
+
+```{r arrange_ex_2-solution}
+hospds %>% filter(City == "Khovd") %>% arrange(desc(Age))
+```
+
+```{r arrange_ex_2-check}
+grade_result(
+  pass_if(~ identical(.result, hospds %>% filter(City == "Khovd") %>% arrange(desc(Age))), "Correct!"),
+  fail_if(~ identical(.result, hospds %>% arrange(desc(Age))) , "You also need to filter by city."),
+  fail_if(~ identical(.result, hospds %>% filter(City == "Khovd")) , "You also need to sort by age."),
+  fail_if(~ identical(.result, hospds %>% filter(City == "Khovd") %>% arrange(Age)) , "You have sorted by age from youngest to oldest, rather than oldest to youngest."),
+  default_message = "Try again"
+)
+```
+
+What was the age of oldest person admitted in Khovd? You can use your previous code with `select` and `slice` to output this number.
+
+```{r arrange_ex_2b, exercise = TRUE}
+
+```
+
+```{r arrange_ex_2b-hint-1}
+hospds %>% filter(City == "Khovd") %>% arrange(desc(Age)) %>% select(___) %>% slice(___)
+```
+
+```{r arrange_ex_2b-hint-2}
+hospds %>% filter(City == "Khovd") %>% arrange(desc(Age)) %>% select(Age) %>% slice(___)
+```
+
+```{r arrange_ex_2b-hint-3}
+hospds %>% filter(City == "Khovd") %>% arrange(desc(Age)) %>% select(Age) %>% slice(1)
+```
+
+```{r arrange_ex_2b-solution}
+hospds %>% filter(City == "Khovd") %>% arrange(desc(Age)) %>% select(Age) %>% slice(1)
+```
+
+```{r arrange_ex_2b-check}
+grade_result(
+  pass_if(~ identical(.result, hospds %>% filter(City == "Khovd") %>% arrange(desc(Age)) %>% select(Age) %>% slice(1)), "Correct!"),
+  fail_if(~ identical(.result, hospds %>% arrange(desc(Age)) %>% select(Age) %>% slice(1)) , "You have found the age of the oldest person admitted in any city. You need to use filter to get the olderst person amitted in Khovd."),
+  fail_if(~ identical(.result, hospds %>% filter(City == "Khovd") %>% arrange(desc(Age)) %>% slice(1)) , "You need to use select to get only the age."),
+  fail_if(~ identical(.result, hospds %>% filter(City == "Khovd") %>% arrange(Age) %>% select(Age) %>% slice(1)) , "You have found the youngest person admitted in Khovd, not the oldest."),
+  default_message = "Try again"
+)
+```
 
 ## Mutate
 
