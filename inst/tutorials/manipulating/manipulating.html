@@ -10,7 +10,7 @@
 
 <meta name="author" content="Julian Faraway and Benjamin A. Robinson" />
 
-<meta name="date" content="2020-08-28" />
+<meta name="date" content="2020-09-07" />
 
 <meta name="progressive" content="false" />
 <meta name="allow-skip" content="false" />
@@ -124,7 +124,6 @@ $(document).ready(function () {
 <p>We need to start by loading the <code>tidyverse</code> and the data.</p>
 <pre class="r"><code>library(tidyverse)
 load(&quot;../../../data/hospds.rda&quot;)</code></pre>
-<p>If you continue immediately from the previous exercise, the data and package would already be loaded. But is sensible to make your scripts work individually.</p>
 </div>
 <div id="section-filter" class="section level2">
 <h2>Filter</h2>
@@ -157,6 +156,12 @@ load(&quot;../../../data/hospds.rda&quot;)</code></pre>
 {"columns":[{"label":["Hospital"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["City"],"name":[2],"type":["chr"],"align":["left"]},{"label":["Gender"],"name":[3],"type":["chr"],"align":["left"]},{"label":["Age"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["Month"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["Day"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["Cost"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["Education"],"name":[8],"type":["chr"],"align":["left"]},{"label":["Occupation"],"name":[9],"type":["chr"],"align":["left"]},{"label":["Admitted"],"name":[10],"type":["date"],"align":["right"]},{"label":["Departure"],"name":[11],"type":["date"],"align":["right"]},{"label":["Finish"],"name":[12],"type":["chr"],"align":["left"]},{"label":["TreatDays"],"name":[13],"type":["dbl"],"align":["right"]},{"label":["Illness"],"name":[14],"type":["chr"],"align":["left"]}],"data":[{"1":"2695883","2":"Ulaanbaatar","3":"Male","4":"90","5":"0","6":"0","7":"276480","8":"primary","9":"simple","10":"2014-03-17","11":"2014-03-24","12":"gone","13":"7","14":"J42."},{"1":"2640309","2":"Ulaanbaatar","3":"Male","4":"90","5":"0","6":"0","7":"0","8":"secondary","9":"NA","10":"2014-02-12","11":"2014-02-22","12":"gone","13":"10","14":"J42."},{"1":"2640309","2":"Ulaanbaatar","3":"Male","4":"90","5":"0","6":"0","7":"0","8":"secondary","9":"NA","10":"2014-02-05","11":"2014-02-18","12":"gone","13":"13","14":"J18."},{"1":"2640961","2":"Ulaanbaatar","3":"Male","4":"90","5":"0","6":"0","7":"168350","8":"primary","9":"agriculture","10":"2014-01-10","11":"2014-01-20","12":"gone","13":"10","14":"J42."},{"1":"2640309","2":"Ulaanbaatar","3":"Male","4":"90","5":"0","6":"0","7":"0","8":"higher","9":"NA","10":"2014-01-23","11":"2014-02-02","12":"gone","13":"10","14":"J41."}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
+<div class="figure">
+<img src="https://youtu.be/EpMHNX_rJUg" alt="" />
+<p class="caption">Video showing how to use <code>filter</code> and the pipe.</p>
+</div>
+<div id="section-slice" class="section level3">
+<h3>Slice</h3>
 <p>The <code>slice</code> verb is similar to <code>filter</code>. It selects the rows using the row number. The <code>:</code> operator generates sequences of numbers. For example:</p>
 <pre class="r"><code>10:20</code></pre>
 <pre><code>##  [1] 10 11 12 13 14 15 16 17 18 19 20</code></pre>
@@ -166,6 +171,7 @@ load(&quot;../../../data/hospds.rda&quot;)</code></pre>
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["Hospital"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["City"],"name":[2],"type":["chr"],"align":["left"]},{"label":["Gender"],"name":[3],"type":["chr"],"align":["left"]},{"label":["Age"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["Month"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["Day"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["Cost"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["Education"],"name":[8],"type":["chr"],"align":["left"]},{"label":["Occupation"],"name":[9],"type":["chr"],"align":["left"]},{"label":["Admitted"],"name":[10],"type":["date"],"align":["right"]},{"label":["Departure"],"name":[11],"type":["date"],"align":["right"]},{"label":["Finish"],"name":[12],"type":["chr"],"align":["left"]},{"label":["TreatDays"],"name":[13],"type":["dbl"],"align":["right"]},{"label":["Illness"],"name":[14],"type":["chr"],"align":["left"]}],"data":[{"1":"613","2":"Dornogovi","3":"Female","4":"2","5":"0","6":"0","7":"26035","8":"noneducated","9":"simple","10":"2014-02-07","11":"2014-02-12","12":"gone","13":"5","14":"J12.0"},{"1":"1004","2":"Övörkhangai","3":"Female","4":"1","5":"0","6":"0","7":"2360","8":"noneducated","9":"simple","10":"2014-01-20","11":"2014-01-22","12":"gone","13":"2","14":"J40."},{"1":"1410","2":"Töv","3":"Male","4":"0","5":"3","6":"0","7":"8630","8":"noneducated","9":"simple","10":"2014-02-27","11":"2014-03-06","12":"gone","13":"7","14":"J18."},{"1":"2695189","2":"Ulaanbaatar","3":"Female","4":"1","5":"0","6":"0","7":"70439","8":"noneducated","9":"NA","10":"2014-01-15","11":"2014-01-20","12":"gone","13":"5","14":"J18."},{"1":"1330","2":"Selenge","3":"Female","4":"50","5":"0","6":"0","7":"6988","8":"professional","9":"health","10":"2013-12-26","11":"2014-01-02","12":"gone","13":"7","14":"J18."},{"1":"1517","2":"Uvs","3":"Female","4":"0","5":"6","6":"20","7":"17237","8":"noneducated","9":"simple","10":"2014-03-09","11":"2014-03-14","12":"gone","13":"5","14":"J18."},{"1":"2030","2":"Ulaanbaatar","3":"Female","4":"63","5":"0","6":"0","7":"30390","8":"secondary","9":"simple","10":"2014-03-03","11":"2014-03-11","12":"gone","13":"8","14":"J41."},{"1":"200407","2":"Ulaanbaatar","3":"Male","4":"0","5":"9","6":"0","7":"36105","8":"noneducated","9":"simple","10":"2014-03-19","11":"2014-03-25","12":"gone","13":"6","14":"J03.0"},{"1":"200207","2":"Ulaanbaatar","3":"Female","4":"1","5":"0","6":"0","7":"39952","8":"noneducated","9":"simple","10":"2014-02-11","11":"2014-02-18","12":"gone","13":"7","14":"J18."},{"1":"200106","2":"Ulaanbaatar","3":"Male","4":"2","5":"0","6":"0","7":"23278","8":"noneducated","9":"simple","10":"2014-03-03","11":"2014-03-10","12":"gone","13":"7","14":"J18.1"},{"1":"200106","2":"Ulaanbaatar","3":"Female","4":"0","5":"5","6":"0","7":"36349","8":"noneducated","9":"simple","10":"2014-02-17","11":"2014-02-26","12":"gone","13":"9","14":"J18.0"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
+</div>
 </div>
 <div id="section-exercises" class="section level3">
 <h3>Exercises</h3>
@@ -1525,7 +1531,7 @@ learnr:::store_exercise_cache("group_ex_4", list(setup = NULL, chunks = list(lis
 <div id="doc-metadata">
 <h2 class="title toc-ignore" style="display:none;">Manipulating data with <code>dplyr</code></h2>
 <h4 class="author"><em>Julian Faraway and Benjamin A. Robinson</em></h4>
-<h4 class="date"><em>28 August 2020</em></h4>
+<h4 class="date"><em>07 September 2020</em></h4>
 </div>
 <!-- end doc-metadata -->
 

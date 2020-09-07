@@ -1,0 +1,6 @@
+library(tidyverse)
+load("data/hospds.rda")
+glimpse(hospds)
+filter(hospds, City == "Ulaanbaatar")
+hospds %>% filter(City == "Ulaanbaatar") %>% filter(Age == 90)
+hospds %>% filter(City == "Ulaanbaatar" & Age == 90)

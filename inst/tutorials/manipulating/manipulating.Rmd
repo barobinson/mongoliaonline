@@ -28,8 +28,6 @@ library(tidyverse)
 load("../../../data/hospds.rda")
 ```
 
-If you continue immediately from the previous exercise, the data and package would already be loaded. But is sensible to make your scripts work individually.
-
 ## Filter
 
 The `dplyr` package uses "verbs" to manipulate data. The first verb we learn is `filter` which chooses rows of the data based on a condition. Here is an example:
@@ -57,6 +55,10 @@ These are 5 90 year olds admitted in Ulaanbaatar. We can do this more neatly as:
 ```{r}
 hospds %>% filter(City == "Ulaanbaatar" & Age == 90)
 ```
+
+![Video showing how to use `filter` and the pipe.](https://youtu.be/EpMHNX_rJUg)
+
+### Slice
 
 The `slice` verb is similar to `filter`. It selects the rows using the row number. The `:` operator generates sequences of numbers. For example:
 
