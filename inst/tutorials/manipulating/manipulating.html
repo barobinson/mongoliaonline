@@ -634,7 +634,7 @@ colnames(hospds)</code></pre>
 <div id="section-exercises-5" class="section level3">
 <h3>Exercises</h3>
 <ol style="list-style-type: decimal">
-<li>Create a data set that contains only the median stays for males and females.</li>
+<li>Create a data set that contains only the median stays for males and females. Label the median column <code>Median</code>.</li>
 </ol>
 <div class="tutorial-exercise" data-label="group_ex_1" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":true}</script>
@@ -646,10 +646,10 @@ colnames(hospds)</code></pre>
 <pre class="text"><code>hospds %&gt;% group_by(Gender) %&gt;% summarise(___)</code></pre>
 </div>
 <div class="tutorial-exercise-support" data-label="group_ex_1-hint-3" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
-<pre class="text"><code>hospds %&gt;% group_by(Gender) %&gt;% summarise(median(TreatDays))</code></pre>
+<pre class="text"><code>hospds %&gt;% group_by(Gender) %&gt;% summarise(Median = median(TreatDays))</code></pre>
 </div>
 <div class="tutorial-exercise-support" data-label="group_ex_1-solution" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
-<pre class="text"><code>hospds %&gt;% group_by(Gender) %&gt;% summarise(median(TreatDays))</code></pre>
+<pre class="text"><code>hospds %&gt;% group_by(Gender) %&gt;% summarise(Median = median(TreatDays))</code></pre>
 </div>
 <ol start="2" style="list-style-type: decimal">
 <li>Create a data set that shows the median ages for each level of Education, separately by sex.</li>
@@ -664,10 +664,10 @@ colnames(hospds)</code></pre>
 <pre class="text"><code>hospds %&gt;% group_by(Education, Gender) %&gt;% summarise(___)</code></pre>
 </div>
 <div class="tutorial-exercise-support" data-label="group_ex_2-hint-3" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
-<pre class="text"><code>hospds %&gt;% group_by(Education, Gender) %&gt;% summarise(median(Age))</code></pre>
+<pre class="text"><code>hospds %&gt;% group_by(Education, Gender) %&gt;% summarise(Median = median(Age))</code></pre>
 </div>
 <div class="tutorial-exercise-support" data-label="group_ex_2-solution" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
-<pre class="text"><code>hospds %&gt;% group_by(Education, Gender) %&gt;% summarise(median(Age))</code></pre>
+<pre class="text"><code>hospds %&gt;% group_by(Education, Gender) %&gt;% summarise(Median = median(Age))</code></pre>
 </div>
 <ol start="3" style="list-style-type: decimal">
 <li>Find all combinations of <code>Education</code>, <code>Occupation</code> and <code>City</code>. Sort them by their frequency, from highest to lowest.</li>
@@ -1368,9 +1368,11 @@ learnr:::store_exercise_cache("group_ex_1", list(setup = NULL, chunks = list(lis
     opts = list(label = "\"group_ex_1\"", exercise = "TRUE"), 
     engine = "r")), code_check = NULL, check = structure(c("grade_result(", 
 "  pass_if(~identical(.result, hospds %>% group_by(Gender) %>% summarise(median(TreatDays))), \"Correct!\"),", 
+"  pass_if(~identical(.result, hospds %>% group_by(Gender) %>% summarise(Median = median(TreatDays))), \"Correct!\"),", 
+"  pass_if(~identical(.result, hospds %>% group_by(Gender) %>% summarise(median = median(TreatDays))), \"Correct!\"),", 
 "  fail_if(~identical(.result, hospds %>% summarise(median(TreatDays))), \"You need to group by gender before finding the median.\"),", 
 "  default_message = \"Try again\"", ")"), chunk_opts = list(
-    label = "group_ex_1-check")), solution = structure("hospds %>% group_by(Gender) %>% summarise(median(TreatDays))", chunk_opts = list(
+    label = "group_ex_1-check")), solution = structure("hospds %>% group_by(Gender) %>% summarise(Median = median(TreatDays))", chunk_opts = list(
     label = "group_ex_1-solution")), options = list(eval = FALSE, 
     echo = TRUE, results = "markup", tidy = FALSE, tidy.opts = NULL, 
     collapse = FALSE, prompt = FALSE, comment = NA, highlight = FALSE, 
@@ -1405,10 +1407,12 @@ learnr:::store_exercise_cache("group_ex_2", list(setup = NULL, chunks = list(lis
     opts = list(label = "\"group_ex_2\"", exercise = "TRUE"), 
     engine = "r")), code_check = NULL, check = structure(c("grade_result(", 
 "  pass_if(~identical(.result, hospds %>% group_by(Education, Gender) %>% summarise(median(Age))), \"Correct!\"),", 
+"  pass_if(~identical(.result, hospds %>% group_by(Education, Gender) %>% summarise(Median = median(Age))), \"Correct!\"),", 
+"  pass_if(~identical(.result, hospds %>% group_by(Education, Gender) %>% summarise(median = median(Age))), \"Correct!\"),", 
 "  fail_if(~identical(.result, hospds %>% group_by(Education) %>% summarise(median(Age))), \"You need to group by gender as well as education.\"),", 
 "  fail_if(~identical(.result, hospds %>% group_by(Gender) %>% summarise(median(Age))), \"You need to group by education as well as gender.\"),", 
 "  default_message = \"Try again\"", ")"), chunk_opts = list(
-    label = "group_ex_2-check")), solution = structure("hospds %>% group_by(Education, Gender) %>% summarise(median(Age))", chunk_opts = list(
+    label = "group_ex_2-check")), solution = structure("hospds %>% group_by(Education, Gender) %>% summarise(Median = median(Age))", chunk_opts = list(
     label = "group_ex_2-solution")), options = list(eval = FALSE, 
     echo = TRUE, results = "markup", tidy = FALSE, tidy.opts = NULL, 
     collapse = FALSE, prompt = FALSE, comment = NA, highlight = FALSE, 

@@ -730,7 +730,7 @@ We group by occupation and city and compute mean stay and age along with the num
 
 ### Exercises
 
-1. Create a data set that contains only the median stays for males and females.
+1. Create a data set that contains only the median stays for males and females. Label the median column `Median`.
 
 ```{r group_ex_1, exercise = TRUE}
 
@@ -745,16 +745,18 @@ hospds %>% group_by(Gender) %>% summarise(___)
 ```
 
 ```{r group_ex_1-hint-3}
-hospds %>% group_by(Gender) %>% summarise(median(TreatDays))
+hospds %>% group_by(Gender) %>% summarise(Median = median(TreatDays))
 ```
 
 ```{r group_ex_1-solution}
-hospds %>% group_by(Gender) %>% summarise(median(TreatDays))
+hospds %>% group_by(Gender) %>% summarise(Median = median(TreatDays))
 ```
 
 ```{r group_ex_1-check}
 grade_result(
   pass_if(~identical(.result, hospds %>% group_by(Gender) %>% summarise(median(TreatDays))), "Correct!"),
+  pass_if(~identical(.result, hospds %>% group_by(Gender) %>% summarise(Median = median(TreatDays))), "Correct!"),
+  pass_if(~identical(.result, hospds %>% group_by(Gender) %>% summarise(median = median(TreatDays))), "Correct!"),
   fail_if(~identical(.result, hospds %>% summarise(median(TreatDays))), "You need to group by gender before finding the median."),
   default_message = "Try again"
 )
@@ -775,16 +777,18 @@ hospds %>% group_by(Education, Gender) %>% summarise(___)
 ```
 
 ```{r group_ex_2-hint-3}
-hospds %>% group_by(Education, Gender) %>% summarise(median(Age))
+hospds %>% group_by(Education, Gender) %>% summarise(Median = median(Age))
 ```
 
 ```{r group_ex_2-solution}
-hospds %>% group_by(Education, Gender) %>% summarise(median(Age))
+hospds %>% group_by(Education, Gender) %>% summarise(Median = median(Age))
 ```
 
 ```{r group_ex_2-check}
 grade_result(
   pass_if(~identical(.result, hospds %>% group_by(Education, Gender) %>% summarise(median(Age))), "Correct!"),
+  pass_if(~identical(.result, hospds %>% group_by(Education, Gender) %>% summarise(Median = median(Age))), "Correct!"),
+  pass_if(~identical(.result, hospds %>% group_by(Education, Gender) %>% summarise(median = median(Age))), "Correct!"),
   fail_if(~identical(.result, hospds %>% group_by(Education) %>% summarise(median(Age))), "You need to group by gender as well as education."),
   fail_if(~identical(.result, hospds %>% group_by(Gender) %>% summarise(median(Age))), "You need to group by education as well as gender."),
   default_message = "Try again"
