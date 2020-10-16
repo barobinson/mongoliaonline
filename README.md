@@ -2,6 +2,7 @@
 
 This package contains the following tutorials:
  - [Reading in data](inst/tutorials/readindata/readindata.Rmd)
+ - [Manipulating data](inst/tutorials/manipulating.Rmd)
 
 The material is adapted from workshop material created by Julian Faraway.
 
